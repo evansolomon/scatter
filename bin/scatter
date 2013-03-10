@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+# Trap interrupts to quit cleanly. See
+# https://twitter.com/mitchellh/status/283014103189053442
+Signal.trap("INT") { exit 1 }
+
+require 'scatter'
+
+Scatter::CLI.start(ARGV)

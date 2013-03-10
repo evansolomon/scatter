@@ -48,3 +48,10 @@ Let's you run arbitrary Capistrano commands, e.g. `scatter cap nginx:restart`.  
 ### `scatter exec COMMAND`
 
 Let's you run arbitrary shell commands in the project-specific deploy directory, e.g. `scatter exec ls`.
+
+## Examples
+
+`scatter`: Deploy the current project.
+`scatter -p projectname`: Deploy the project in `./projectname`.
+`scatter -p ~/projectname`: Deploy the project in your home directory's `projectname` directory.
+`scatter -s wp`: Deploy the current project by calling `~/.deploys/__shared/wp` and passing your current Git repository's root as an argument.

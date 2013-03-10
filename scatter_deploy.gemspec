@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email = 'evan@evanalyze.com'
   spec.description = "A deploy helper."
   spec.executables = %w(scatter)
-  spec.files = %w(README.md scatter.gemspec MIT-LICENSE)
+  spec.files = %w(README.md scatter_deploy.gemspec MIT-LICENSE)
   spec.files += Dir.glob("bin/**/*")
   spec.files += Dir.glob("lib/**/*.rb")
   spec.homepage = 'http://evansolomon.me/'

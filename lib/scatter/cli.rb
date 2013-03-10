@@ -48,14 +48,12 @@ module Scatter
 
     def project_path
       if options.project
-        project = options.project
+        File.expand_path options.project
       elsif git?
-        project = `git rev-parse --show-toplevel`.chomp
+        `git rev-parse --show-toplevel`.chomp
       else
-        return false
+        false
       end
-
-      File.expand_path project
     end
 
     def project_deploy_dir

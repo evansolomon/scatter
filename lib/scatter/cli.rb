@@ -51,8 +51,6 @@ module Scatter
         File.expand_path options.project
       elsif git?
         `git rev-parse --show-toplevel`.chomp
-      else
-        false
       end
     end
 

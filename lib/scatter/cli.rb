@@ -27,11 +27,11 @@ module Scatter
 
     desc "cap COMMAND", "Run arbitrary Capistrano commands."
     def cap(*cmd)
-      execute "cap", cmd
+      exec "cap", cmd
     end
 
-    desc "execute COMMAND", "Run arbitrary commands."
-    def execute(*cmd)
+    desc "exec COMMAND", "Run arbitrary commands."
+    def exec(*cmd)
       run cmd.join ' '
     end
 

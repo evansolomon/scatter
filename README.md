@@ -29,11 +29,13 @@ Options:
 
 All commands take three optional flags, `--directory`, `--project`, and `--shared`.
 
-### Flags
+## Flags
 
 * `--directory`, `-d`: Specify the root of your deploys directory. Defaults to `~/.deploys`.
 * `--project`, `-p`: Specify a path to a project (relative or absolute). Defaults to the root of the current Git repository, if one exists.  If you're not in a Git repository you *must* pass this argument.
 * `--shared`, `-s`: Specify a shared deploy command to use instead of a project-specific script. The absolute project path will be passed as an argument to the command.
+
+## Commands
 
 ### `scatter` or `scatter deploy`
 

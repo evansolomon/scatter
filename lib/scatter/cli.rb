@@ -83,9 +83,7 @@ module Scatter
         return
       end
 
-      command = generate_command unless command
-
-      unless command
+      unless command ||= generate_command
         say "No deploy command found"
         return
       end

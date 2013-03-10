@@ -51,7 +51,7 @@ Let's you run arbitrary shell commands in the project-specific deploy directory,
 
 ## Examples
 
-`scatter`: Deploy the current project.
-`scatter -p projectname`: Deploy the project in `./projectname`.
-`scatter -p ~/projectname`: Deploy the project in your home directory's `projectname` directory.
-`scatter -s wp`: Deploy the current project by calling `~/.deploys/__shared/wp` and passing your current Git repository's root as an argument.
+* `scatter`: Deploy the current project.
+* `scatter -p projectname`: Deploy the project in `./projectname`.
+* `scatter -p ~/projectname`: Deploy the project in your home directory's `projectname` directory.
+* `scatter -s wp`: Deploy the current project by calling `~/.deploys/__shared/wp` and passing your current Git repository's root as an argument.

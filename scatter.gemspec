@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.files += Dir.glob("lib/**/*.rb")
   spec.homepage = 'http://evansolomon.me/'
   spec.licenses = ['MIT']
-  spec.name = 'scatter'
+  spec.name = 'scatter_deploy'
   spec.require_paths = ['lib']
   spec.required_rubygems_version = '>= 1.3.6'
   spec.summary = "Scatter separates deploy scripts from project code, but keeps the convenience of running deploys from project directories."

@@ -12,12 +12,12 @@ module Scatter
     class_option :project,
       :aliases => "-p",
       :type => :string,
-      :desc => "Specify a project, defaults to current Git root's basename."
+      :desc => "Specify a project path, defaults to current Git repository root."
 
     class_option :shared,
       :aliases => "-s",
       :type => :string,
-      :desc => "Use a deploy script in the __shared directory. The project name will automatically be passed as an argument"
+      :desc => "Use a deploy script in the __shared directory. The project path will automatically be passed as an argument"
 
     desc "deploy", "Run a deploy routine. This is the default task."
     def deploy
@@ -46,14 +46,24 @@ module Scatter
       `git rev-parse --is-inside-work-tree 2>/dev/null`.match "^true"
     end
 
-    def project_name
-      return options.project if options.project
-      File.basename `git rev-parse --show-toplevel`.chomp if git?
+    def project_path
+      if options.project
+        project = options.project
+      elsif git?
+        project = `git rev-parse --show-toplevel`.chomp
+      else
+        return false
+      end
+
+      File.expand_path project
     end
 
     def project_deploy_dir
-      return "#{options.directory}/__shared" if options.shared
-      "#{options.directory}/#{project_name}"
+      if options.shared
+        "#{options.directory}/__shared"
+      elsif project_path
+        "#{options.directory}/#{File.basename project_path}"
+      end
     end
 
     def capfile?
@@ -66,7 +76,7 @@ module Scatter
     end
 
     def generate_command
-      return "./#{options.shared} #{project_name}" if options.shared
+      return "./#{options.shared} #{project_path}" if options.shared
       return "./deploy" if executable?
       return "cap deploy" if capfile?
     end

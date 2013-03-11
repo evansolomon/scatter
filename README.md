@@ -14,11 +14,11 @@ You interact with Scatter through the `scatter` command.  You can see a basic ov
 
 ```
 Tasks:
-  scatter cap COMMAND      # Run arbitrary Capistrano commands.
-  scatter deploy           # Run a deploy routine. This is the default task.
-  scatter execute COMMAND  # Run arbitrary commands.
-  scatter help [TASK]      # Describe available tasks or one specific task
-  scatter version          # Show version.
+  scatter cap COMMAND   # Run arbitrary Capistrano commands.
+  scatter deploy        # Run a deploy routine. This is the default task.
+  scatter exec COMMAND  # Run arbitrary commands.
+  scatter help [TASK]   # Describe available tasks or one specific task
+  scatter version       # Show version.
 
 Options:
   -d, [--directory=DIRECTORY]  # Specify a deploys directory.

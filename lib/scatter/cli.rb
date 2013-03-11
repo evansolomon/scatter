@@ -1,16 +1,12 @@
 require 'thor'
-require 'scatter/config'
 
 module Scatter
   class CLI < Thor
 
-    desc "config SUBCOMMAND ...ARGS", "Set Scatter config."
-    subcommand 'config', Scatter::Config
-
     class_option :directory,
       :aliases => "-d",
       :type => :string,
-      :default => Config.new.read['directory'] || "#{Dir.home}/.deploys",
+      :default => "#{Dir.home}/.deploys",
       :desc => "Specify a deploys directory."
 
     class_option :project,
@@ -43,16 +39,6 @@ module Scatter
     map %w(-v --version) => :version
     def version
       say Scatter::VERSION
-    end
-
-    def method_missing(*args)
-      puts args
-      config = Config.new.read
-      alias_name = args.join ' '
-      super unless config['aliases'] and config['aliases'][alias_name]
-
-      # Execute the aliased command
-      system "scatter #{config['aliases'][alias_name]}"
     end
 
     protected

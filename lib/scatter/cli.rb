@@ -72,8 +72,8 @@ module Scatter
     end
 
     def generate_command
-      return "#{File.join ".", options.shared} project_path" if options.shared
-      return "#{File.join ".", "deploy"} project_path" if executable?
+      return "#{File.join ".", options.shared} #{project_path}" if options.shared
+      return "#{File.join ".", "deploy"} #{project_path}" if executable?
       return "cap deploy" if capfile?
     end
 

@@ -6,7 +6,7 @@ module Scatter
     class_option :directory,
       :aliases => "-d",
       :type => :string,
-      :default => "#{Dir.home}/.deploys",
+      :default => File.join(Dir.home, ".deploys"),
       :desc => "Specify a deploys directory."
 
     class_option :project,
@@ -56,24 +56,24 @@ module Scatter
 
     def project_deploy_dir
       if options.shared
-        "#{options.directory}/__shared"
+        File.join options.directory, "__shared"
       elsif project_path
-        "#{options.directory}/#{File.basename project_path}"
+        File.join options.directory, File.basename(project_path)
       end
     end
 
     def capfile?
-      File.exists? "#{project_deploy_dir}/Capfile"
+      File.exists? File.join(project_deploy_dir, "Capfile")
     end
 
     def executable?
-      deploy = "#{project_deploy_dir}/deploy"
+      deploy = File.join project_deploy_dir, "deploy"
       File.exists? deploy and File.executable? deploy
     end
 
     def generate_command
-      return "./#{options.shared} #{project_path}" if options.shared
-      return "./deploy #{project_path}" if executable?
+      return "#{File.join ".", options.shared} project_path" if options.shared
+      return "#{File.join ".", "deploy"} project_path" if executable?
       return "cap deploy" if capfile?
     end
 

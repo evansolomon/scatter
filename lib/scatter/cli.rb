@@ -72,7 +72,13 @@ module Scatter
 
     def executable?
       deploy = "#{project_deploy_dir}/deploy"
-      File.exists? deploy and File.executable? deploy
+      return false unless File.exists? deploy
+
+      if File.executable? deploy
+        return true
+      else
+        abort "It looks like you have a deploy file, but it's not executable. Try something like: chmod +x #{deploy}"
+      end
     end
 
     def generate_command

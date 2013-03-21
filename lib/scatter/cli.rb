@@ -89,13 +89,11 @@ module Scatter
 
       def run(command=nil)
         unless project_deploy_dir
-          say "No deploy directory found"
-          return
+          abort "No deploy directory found"
         end
 
         unless command ||= generate_command
-          say "No deploy command found"
-          return
+          abort "No deploy command found"
         end
 
         system "cd #{project_deploy_dir} && #{command}"

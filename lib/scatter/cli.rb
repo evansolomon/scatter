@@ -43,6 +43,10 @@ module Scatter
 
     protected
     def git?
+      unless system "which git >/dev/null 2>&1"
+        abort "Scatter requires Git if you want it to find projects automatically"
+      end
+
       `git rev-parse --is-inside-work-tree 2>/dev/null`.match "^true"
     end
 

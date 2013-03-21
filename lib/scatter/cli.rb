@@ -41,65 +41,66 @@ module Scatter
       say Scatter::VERSION
     end
 
-    protected
-    def git?
-      unless system "which git >/dev/null 2>&1"
-        abort "Scatter requires Git if you want it to find projects automatically"
+    no_tasks do
+      def git?
+        unless system "which git >/dev/null 2>&1"
+          abort "Scatter requires Git if you want it to find projects automatically"
+        end
+
+        `git rev-parse --is-inside-work-tree 2>/dev/null`.match "^true"
       end
 
-      `git rev-parse --is-inside-work-tree 2>/dev/null`.match "^true"
-    end
-
-    def project_path
-      if options.project
-        File.expand_path options.project
-      elsif git?
-        `git rev-parse --show-toplevel`.chomp
-      end
-    end
-
-    def project_deploy_dir
-      if options.shared
-        "#{options.directory}/__shared"
-      elsif project_path
-        "#{options.directory}/#{File.basename project_path}"
-      end
-    end
-
-    def capfile?
-      File.exists? "#{project_deploy_dir}/Capfile"
-    end
-
-    def executable?
-      deploy = "#{project_deploy_dir}/deploy"
-      return false unless File.exists? deploy
-
-      if File.executable? deploy
-        return true
-      else
-        abort "It looks like you have a deploy file, but it's not executable. Try something like: chmod +x #{deploy}"
-      end
-    end
-
-    def generate_command
-      return "./#{options.shared} #{project_path}" if options.shared
-      return "./deploy #{project_path}" if executable?
-      return "cap deploy" if capfile?
-    end
-
-    def run(command=nil)
-      unless project_deploy_dir
-        say "No deploy directory found"
-        return
+      def project_path
+        if options.project
+          File.expand_path options.project
+        elsif git?
+          `git rev-parse --show-toplevel`.chomp
+        end
       end
 
-      unless command ||= generate_command
-        say "No deploy command found"
-        return
+      def project_deploy_dir
+        if options.shared
+          "#{options.directory}/__shared"
+        elsif project_path
+          "#{options.directory}/#{File.basename project_path}"
+        end
       end
 
-      system "cd #{project_deploy_dir} && #{command}"
-    end
+      def capfile?
+        File.exists? "#{project_deploy_dir}/Capfile"
+      end
 
+      def executable?
+        deploy = "#{project_deploy_dir}/deploy"
+        return false unless File.exists? deploy
+
+        if File.executable? deploy
+          return true
+        else
+          abort "It looks like you have a deploy file, but it's not executable. Try something like: chmod +x #{deploy}"
+        end
+      end
+
+      def generate_command
+        return "./#{options.shared} #{project_path}" if options.shared
+        return "./deploy #{project_path}" if executable?
+        return "cap deploy" if capfile?
+      end
+
+      def run(command=nil)
+        unless project_deploy_dir
+          say "No deploy directory found"
+          return
+        end
+
+        unless command ||= generate_command
+          say "No deploy command found"
+          return
+        end
+
+        system "cd #{project_deploy_dir} && #{command}"
+      end
+
+    end
   end
 end

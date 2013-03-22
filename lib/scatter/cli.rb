@@ -74,27 +74,22 @@ module Scatter
         deploy = "#{project_deploy_dir}/deploy"
         return false unless File.exists? deploy
 
-        if File.executable? deploy
-          return true
-        else
+        unless File.executable? deploy
           abort "It looks like you have a deploy file, but it's not executable. Try something like: chmod +x #{deploy}"
         end
+
+        return true
       end
 
       def generate_command
-        return "./#{options.shared} #{project_path}" if options.shared
-        return "./deploy #{project_path}" if executable?
-        return "cap deploy" if capfile?
+        "./#{options.shared} #{project_path}" if options.shared
+        "./deploy #{project_path}" if executable?
+        "cap deploy" if capfile?
       end
 
       def run(command=nil)
-        unless project_deploy_dir
-          abort "No deploy directory found"
-        end
-
-        unless command ||= generate_command
-          abort "No deploy command found"
-        end
+        abort "No deploy directory found" unless project_deploy_dir
+        abort "No deploy command found"   unless command ||= generate_command
 
         system "cd #{project_deploy_dir} && #{command}"
       end

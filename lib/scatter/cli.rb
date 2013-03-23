@@ -82,9 +82,9 @@ module Scatter
       end
 
       def generate_command
-        "./#{options.shared} #{project_path}" if options.shared
-        "./deploy #{project_path}" if executable?
-        "cap deploy" if capfile?
+        return "./#{options.shared} #{project_path}" if options.shared
+        return "./deploy #{project_path}" if executable?
+        return "cap deploy" if capfile?
       end
 
       def run(command=nil)

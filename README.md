@@ -55,3 +55,7 @@ Let's you run arbitrary shell commands in the project-specific deploy directory,
 * `scatter -p projectname`: Deploy the project in `./projectname`.
 * `scatter -p ~/projectname`: Deploy the project in your home directory's `projectname` directory.
 * `scatter -s wp`: Deploy the current project by calling `~/.deploys/__shared/wp` and passing your current Git repository's root as an argument.
+
+### WordPress
+
+One of my use cases for Scatter is deploying WordPress plugins versioned with Git to WordPress.org, which uses Subversion.  I wrote a post on how I use Scatter to do it: [Git, WordPress plugins, and a bit of sanity: Scatter](http://evansolomon.me/notes/git-wordpress-plugins-and-a-bit-of-sanity-scatter/).

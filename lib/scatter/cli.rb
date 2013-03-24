@@ -1,4 +1,5 @@
 require 'thor'
+require 'scatter/config'
 
 module Scatter
   class CLI < Thor
@@ -6,7 +7,7 @@ module Scatter
     class_option :directory,
       :aliases => "-d",
       :type => :string,
-      :default => "#{Dir.home}/.deploys",
+      :default => Config.get('directory'),
       :desc => "Specify a deploys directory."
 
     class_option :project,

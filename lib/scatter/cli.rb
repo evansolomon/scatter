@@ -43,6 +43,15 @@ module Scatter
     end
 
     no_tasks do
+      # Process aliases
+      def method_missing(method, *args)
+        aliases  = Config.get 'aliases'
+        _method  = method.to_s
+
+        return super unless aliases.has_key?(_method) and aliases[_method].is_a?(String)
+        system "scatter #{aliases[_method]}"
+      end
+
       def git?
         unless system "which git >/dev/null 2>&1"
           abort "Scatter requires Git if you want it to find projects automatically"

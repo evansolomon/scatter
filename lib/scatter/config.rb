@@ -17,9 +17,7 @@ module Scatter
 
     def self.get(key=nil)
       config = self.parse
-      return config unless key
-
-      config.has_key?(key) ? config[key] : nil
+      key ? config[key] : config
     end
   end
 end

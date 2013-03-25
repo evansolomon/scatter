@@ -72,7 +72,7 @@ module Scatter
         _method  = method.to_s
 
         return super unless aliases.has_key?(_method) and aliases[_method].is_a?(String)
-        system "scatter #{aliases[_method]}"
+        system "scatter #{aliases[_method]} #{args.join ' '}"
       end
 
       def git?

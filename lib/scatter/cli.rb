@@ -20,6 +20,10 @@ module Scatter
       :type => :string,
       :desc => "Use a deploy script in the __shared directory. The project path will automatically be passed as an argument"
 
+    class_option :dry_run,
+      :type => :boolean,
+      :desc => "Print 'success' if the command would have succeeded, otherwise an error message, without actually running the command."
+
     desc "deploy", "Run a deploy routine. This is the default task."
     def deploy
       run
@@ -124,7 +128,11 @@ module Scatter
         abort "No deploy directory found" unless project_deploy_dir
         abort "No deploy command found"   unless command ||= generate_command
 
-        system "cd #{project_deploy_dir} && #{command}"
+        if options.dry_run
+          say "success"
+        else
+          system "cd #{project_deploy_dir} && #{command}"
+        end
       end
 
     end

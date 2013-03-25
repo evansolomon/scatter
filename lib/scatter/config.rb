@@ -19,5 +19,27 @@ module Scatter
       config = self.parse
       key ? config[key] : config
     end
+
+    def self.save(options)
+      File.open(CONFIG_FILE, 'w') do |f|
+        f.write options.to_yaml
+      end
+    end
+
+    def self.set(key, value)
+      config = get
+      config[key] = value
+      save config
+    end
+
+    def self.show(key=nil)
+      if key
+        value = get[key]
+      else
+        value = get
+      end
+
+      value.to_yaml
+    end
   end
 end

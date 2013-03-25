@@ -49,6 +49,33 @@ Let's you run arbitrary Capistrano commands, e.g. `scatter cap nginx:restart`.  
 
 Let's you run arbitrary shell commands in the project-specific deploy directory, e.g. `scatter exec ls`.
 
+## Config
+
+You can set default configuration options in `~/.scatterconfig` using YAML.  Currently used settings are:
+
+* `directory` (string): Sets your default deploys directory, acts like using the `--directory` flag without having to specify it each time.
+* `aliases` (array): Aliases Scatter commands to other Scatter commands.  For example, you could alias `scatter foo` to `scatter -p ~/code/foo -d ~/.foodeploys`.  Aliases will *always* prepend `scatter` to the aliased command.
+
+Scatter exposes `config` and `alias` commands to manage these settings.  You can also manually edit `~/.scatterconfig`.  Here's an example config file:
+
+```yml
+---
+directory: /Users/evan/code/mydeploys
+aliases:
+  wp: -s wp
+  rgem: -s gem
+  foo: -p ~/code/foo -d ~/code/foodeploys
+```
+
+These settings could be achieved with these commands:
+
+```shell
+scatter config directory ~/code/mydeploys
+scatter alias wp "-s wp"
+scatter alias gem "-s gem"
+scatter alias foo "-p ~/code/foo -d ~/code/foodeploys"
+```
+
 ## Examples
 
 * `scatter`: Deploy the current project.

@@ -42,6 +42,29 @@ module Scatter
       say Scatter::VERSION
     end
 
+    desc "alias FROM, TO", "Create an aliased Scatter command"
+    def alias(from, *to)
+      config = Config.get
+      config['aliases'] ||= {}
+      config['aliases'][from] = to.join ' '
+      Config.save config
+
+      say Config.show 'aliases'
+    end
+
+    desc "config SETTING, VALUE", "Set a default config option"
+    method_option :show, :type => :boolean, :desc => "Show your current config settings"
+    def config(*args)
+      unless options.show
+        abort "Incorrect number of arguments" unless args.length == 2
+        setting = args.first
+        value = args.last
+        Config.set setting, value
+      end
+
+      say Config.show
+    end
+
     no_tasks do
       # Process aliases
       def method_missing(method, *args)

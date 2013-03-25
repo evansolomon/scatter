@@ -52,7 +52,7 @@ module Scatter
       say Config.show 'aliases'
     end
 
-    desc "config SETTING, VALUE", "Set a default config option"
+    desc "config SETTING, VALUE", "Set a default config option in ~/.scatterconfig"
     method_option :show, :type => :boolean, :desc => "Show your current config settings"
     def config(*args)
       unless options.show

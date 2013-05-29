@@ -20,4 +20,5 @@ Gem::Specification.new do |spec|
   spec.required_rubygems_version = '>= 1.3.6'
   spec.summary = "Scatter separates deploy scripts from project code, but keeps the convenience of running deploys from project directories."
   spec.version = Scatter::VERSION
+  spec.required_ruby_version = '>= 1.9.2'
 end

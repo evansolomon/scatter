@@ -8,6 +8,8 @@ A deploy helper.
 
 If your Gem directory is in your `PATH`, you'll now have access to the `scatter` command.  Run `scatter help` for an overview.
 
+Scatter requires Ruby >= 1.9.2.
+
 ## Usage
 
 You interact with Scatter through the `scatter` command.  You can see a basic overview with `scatter help`.

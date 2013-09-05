@@ -80,11 +80,22 @@ module Scatter
       end
 
       def git?
-        unless system "which git >/dev/null 2>&1"
+        null_device = if windows?
+          'NUL'
+        else
+          '/dev/null'
+        end
+
+        unless system "which git >#{null_device} 2>&1"
           abort "Scatter requires Git if you want it to find projects automatically"
         end
 
         `git rev-parse --is-inside-work-tree 2>/dev/null`.match "^true"
+      end
+
+      # http://stackoverflow.com/a/171011
+      def windows?
+        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
       end
 
       def project_path
